@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+		<title>View Penduduk by NIK</title>
+    </head>
+    <body>
+    	<nav th:replace="fragments/fragment :: navbar"></nav>
+		<div th:replace="fragments/fragment :: header"></div>
+		<h2 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}">NIK</h2>
+       	<h3 th:text="'NIK = ' + ${penduduk.nik}">NIK</h3>
+       	<h3 th:text="'Nama = ' + ${penduduk.nama}">Nama</h3>
+       	<h3 th:text="'Tempat/Tanggal Lahir = ' + ${penduduk.tempat_lahir} + '/' + ${penduduk.tanggal_lahir}">TTL</h3>
+       	<h3 th:text="'Alamat = ' + ${keluarga.alamat}">Alamat</h3>
+       	<h3 th:text="'RT/RW = ' + ${keluarga.rt} + '/' + ${keluarga.rw}"></h3>
+       	<h3 th:text="'Kelurahan = ' + ${keluarga.nama_kelurahan}"></h3>
+		<h3 th:text="'Kecamatan = ' + ${keluarga.nama_kecamatan}"></h3>       	
+       	<h3 th:text="'Kota = ' + ${keluarga.nama_kota}"></h3>
+       	<h3 th:text="'Golongan Darah = ' + ${penduduk.golongan_darah}">Golongan Darah</h3>
+       	<h3 th:text="'Agama = ' + ${penduduk.agama}">Agama</h3>
+       	<h3 th:text="'Status Perkawinan = ' + ${penduduk.status_perkawinan}">Status Perkawinan</h3>
+       	<h3 th:text="'Pekerjaan = ' + ${penduduk.pekerjaan}">Pekerjaan</h3> 
+       	<h3 th:if="${penduduk.is_wni}==1">WNI</h3>
+       	<h3 th:unless="${penduduk.is_wni}==1">WNA</h3>
+       	<h3 th:if="${penduduk.is_wafat}==1">Wafat</h3>
+       	<h3 th:unless="${penduduk.is_wafat}==1">Hidup</h3>
+   		<form action="/penduduk/mati" method="post">
+   			<input type="hidden" name="nik" th:value="${penduduk.nik}" />
+   			<input type="hidden" name="nkk" th:value="${keluarga.nomor_kk}" />
+   			<input type="hidden" name="is_wafat" th:value="1" />
+	    	<button type="submit" name="action" value="submit">Nonaktifkan</button>
+	    	<a class="btn btn-primary" role="button" th:href="'/penduduk/ubah/'+ ${penduduk.nik}" > Ubah Data</a>
+	    	
+   		</form>
+   		<div th:replace="fragments/fragment :: footer"></div>
+    </body>
+</html>
+

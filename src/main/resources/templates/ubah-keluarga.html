@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+		
+	<title>Ubah Data Keluarga</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div th:replace="fragments/fragment :: header"></div>
+	
+	<h1 class="page-header">Ubah Data Keluarga</h1>
+
+	<form action="/keluarga/ubah/+th:action=${nkk}" method="post">
+		<div>
+			<label for="alamat">Alamat</label> <input type="text" name="alamat" th:value="${keluarga.alamat}"/>
+		</div>
+		<div>
+			<label for="rt">RT</label> <input type="text" name="rt" th:value="${keluarga.rt}"/>
+		</div>
+		<div>
+			<label for="rw">RW</label> <input type="text" name="rw" th:value="${keluarga.rw}"/>
+		</div>
+		<div>
+			<label for="nama_kelurahan">Kelurahan/Desa</label> <input type="text" name="nama_kelurahan" th:value="${keluarga.nama_kelurahan}"/>
+		</div>
+		<div>
+			<label for="nama_kecamatan">Kecamatan</label> <input type="text" name="nama_kecamatan" th:value="${keluarga.nama_kecamatan}"/>
+		</div>
+		<div>
+			<label for="nama_kota">Kota</label> <input type="text" name="nama_kota" th:value="${keluarga.nama_kota}"/>
+		</div>
+		<div>
+			<input type="hidden" name="nkk" th:value="${nkk}" />
+		</div>
+		<div>
+			<button type="submit" name="action" value="save">Simpan</button>
+		</div>
+	</form>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+
+</html>
+

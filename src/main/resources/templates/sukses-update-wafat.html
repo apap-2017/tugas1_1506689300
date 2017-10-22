@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+	<title>Sukses Non-aktifkan Penduduk</title>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div th:replace="fragments/fragment :: header"></div>
+	<h2>Sukses !</h2>
+       	<h3 th:text="'Penduduk dengan NIK ' + ${nik} + ' sudah tidak aktif'">NIK</h3>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>
