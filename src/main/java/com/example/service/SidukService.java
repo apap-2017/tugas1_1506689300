@@ -2,7 +2,11 @@ package com.example.service;
 
 import java.util.List;
 
+import com.example.model.DaftarModel;
+import com.example.model.KecamatanModel;
 import com.example.model.KeluargaModel;
+import com.example.model.KelurahanModel;
+import com.example.model.KotaModel;
 import com.example.model.PendudukModel;
 
 public interface SidukService {
@@ -30,5 +34,11 @@ public interface SidukService {
 	void updateWafat(String nik);
 	void updateStatusKeluarga (String nkk);
 	
-	List<String> cariKota();
+	List<KotaModel> daftarKota();
+	KotaModel selectKota(String id_kota);
+	List<KecamatanModel> daftarKecamatan(String id_kota);
+	KecamatanModel selectKecamatan(String id_kecamatan);
+	List<KelurahanModel> daftarKelurahan(String id_kecamatan);
+	KelurahanModel selectKelurahan(String id_kelurahan);
+	List<PendudukModel> daftarPenduduk(String id_kelurahan);
 }

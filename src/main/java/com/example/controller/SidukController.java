@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.model.PendudukModel;
+import com.example.model.DaftarModel;
+import com.example.model.KecamatanModel;
 import com.example.model.KeluargaModel;
+import com.example.model.KelurahanModel;
+import com.example.model.KotaModel;
 import com.example.service.SidukService;
 
 
@@ -221,12 +225,49 @@ public class SidukController {
 		return "sukses-ubah-keluarga";
 	}
 	
-	
-//	@RequestMapping("/penduduk/cari")
-//	public String cariKota(Model model, List list)
-//	{
-//		List<String> daftarKota = sidukDAO.cariKota();
-//		list.addAtrribute(daftarKota);
-//		return "cari-kota";
-//	}
+	@RequestMapping("/penduduk/cari")
+	public String pilihKecamatan(Model model,
+							@RequestParam(value = "id_kota", required = false) String id_kota,
+							@RequestParam(value = "id_kecamatan", required = false) String id_kecamatan,
+							@RequestParam(value = "id_kelurahan", required = false) String id_kelurahan)
+	{
+		if(id_kota == null && id_kecamatan == null && id_kelurahan == null ) {
+			List<KotaModel> daftarKota = sidukDAO.daftarKota();
+			
+			model.addAttribute("daftarKota", daftarKota);
+			return "pilih-kota";
+		} else if (id_kota != null && id_kecamatan == null && id_kelurahan == null) {
+			
+			KotaModel kota = sidukDAO.selectKota(id_kota);
+			List<KecamatanModel> daftarKecamatan = sidukDAO.daftarKecamatan(id_kota);
+			
+			model.addAttribute("kota", kota);
+			model.addAttribute("daftarKecamatan", daftarKecamatan);
+			return "pilih-kecamatan";
+		} else if (id_kota != null && id_kecamatan != null && id_kelurahan == null) {
+			
+			KotaModel kota = sidukDAO.selectKota(id_kota);
+			KecamatanModel kecamatan = sidukDAO.selectKecamatan(id_kecamatan);
+			List<KelurahanModel> daftarKelurahan = sidukDAO.daftarKelurahan(id_kecamatan);
+			
+			model.addAttribute("kota", kota);
+			model.addAttribute("kecamatan", kecamatan);
+			model.addAttribute("daftarKelurahan", daftarKelurahan);
+			return "pilih-kelurahan";
+		} else if (id_kota != null && id_kecamatan != null && id_kelurahan != null) {
+			
+			KotaModel kota = sidukDAO.selectKota(id_kota);
+			KecamatanModel kecamatan = sidukDAO.selectKecamatan(id_kecamatan);
+			KelurahanModel kelurahan = sidukDAO.selectKelurahan(id_kelurahan);
+			
+			List<PendudukModel> daftarPenduduk = sidukDAO.daftarPenduduk(id_kelurahan);
+			
+			model.addAttribute("kota", kota);
+			model.addAttribute("kecamatan", kecamatan);
+			model.addAttribute("kelurahan", kelurahan);
+			model.addAttribute("daftarPenduduk", daftarPenduduk);
+			return "view-penduduk-adv";
+		}
+		return "";
+	}
 }

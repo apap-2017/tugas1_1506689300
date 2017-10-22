@@ -12,7 +12,11 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Many;
 
+import com.example.model.DaftarModel;
+import com.example.model.KecamatanModel;
 import com.example.model.KeluargaModel;
+import com.example.model.KelurahanModel;
+import com.example.model.KotaModel;
 import com.example.model.PendudukModel;
 
 @Mapper
@@ -202,7 +206,49 @@ public interface SidukMapper {
 	@Update("update keluarga set is_tidak_berlaku=1 where nomor_kk = #{nkk}")
 	void updateStatusKeluarga (@Param("nkk") String nkk);
 	
-	@Select("select nama_kota "
-			+ "from kota")
-	List<String> cariKota();
+	@Select("select * from kota")
+	@Results(value = {
+			@Result(property="id", column="id"),
+			@Result(property="kode_kota", column="kode_kota"),
+			@Result(property="nama_kota", column="nama_kota")
+	})
+	List<KotaModel> daftarKota();
+	
+	@Select("select * from kota where id=#{id_kota}")
+	KotaModel selectKota(@Param("id_kota") String id_kota);
+	
+	@Select("select * from kecamatan where id_kota = #{id_kota}")
+	@Results(value = {
+			@Result(property="id", column="id"),
+			@Result(property="id_kota", column="id_kota"),
+			@Result(property="kode_kecamatan", column="kode_kecamatan"),
+			@Result(property="nama_kecamatan", column="nama_kecamatan")
+	})
+	List<KecamatanModel> daftarKecamatan(@Param("id_kota") String id_kota);
+	
+	@Select("select * from kecamatan where id=#{id_kecamatan}")
+	KecamatanModel selectKecamatan(@Param("id_kecamatan") String id_kecamatan);
+	
+	@Select("select * from kelurahan where id_kecamatan = #{id_kecamatan}")
+	@Results(value = {
+			@Result(property="id", column="id"),
+			@Result(property="id_kecamatan", column="id_kecamatan"),
+			@Result(property="kode_kelurahan", column="kode_kelurahan"),
+			@Result(property="nama_kelurahan", column="nama_kelurahan"),
+			@Result(property="kode_pos", column="kode_pos")
+	})
+	List<KelurahanModel> daftarKelurahan(@Param("id_kecamatan") String id_kecamatan);
+	
+	@Select("select * from kelurahan where id=#{id_kelurahan}")
+	KelurahanModel selectKelurahan(@Param("id_kelurahan") String id_kelurahan);
+	
+	@Select("select P.nik, P.nama, P.jenis_kelamin "
+			+ "from penduduk P join keluarga Kg on P.id_keluarga = Kg.id "
+			+ "where Kg.id_kelurahan = #{id_kelurahan}")
+	@Results(value = {
+			@Result(property="nik", column="nik"),
+			@Result(property="nama", column="nama"),
+			@Result(property="jenis_kelamin", column="jenis_kelamin")
+	})
+	List<PendudukModel> daftarPenduduk(@Param("id_kelurahan") String id_kelurahan);
 }

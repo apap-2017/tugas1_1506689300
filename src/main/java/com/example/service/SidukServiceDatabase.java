@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.dao.SidukMapper;
 import com.example.model.PendudukModel;
+import com.example.model.DaftarModel;
+import com.example.model.KecamatanModel;
 import com.example.model.KeluargaModel;
+import com.example.model.KelurahanModel;
+import com.example.model.KotaModel;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -181,7 +185,37 @@ public class SidukServiceDatabase implements SidukService
     }
     
     @Override
-    public List<String> cariKota() {
-    	return sidukMapper.cariKota();
+    public List<KotaModel> daftarKota(){
+    	return sidukMapper.daftarKota();
+    }
+    
+    @Override
+    public KotaModel selectKota(String id_kota) {
+    	return sidukMapper.selectKota(id_kota);
+    }
+    
+    @Override
+    public List<KecamatanModel> daftarKecamatan(String id_kota){
+    	return sidukMapper.daftarKecamatan(id_kota);
+    }
+    
+    @Override
+    public KecamatanModel selectKecamatan(String id_kecamatan) {
+    	return sidukMapper.selectKecamatan(id_kecamatan);
+    }
+    
+    @Override
+    public List<KelurahanModel> daftarKelurahan(String id_kecamatan){
+    	return sidukMapper.daftarKelurahan(id_kecamatan);
+    }
+    
+    @Override
+    public KelurahanModel selectKelurahan(String id_kelurahan) {
+    	return sidukMapper.selectKelurahan(id_kelurahan);
+    }
+    
+    @Override
+    public List<PendudukModel> daftarPenduduk(String id_kelurahan){
+    	return sidukMapper.daftarPenduduk(id_kelurahan);
     }
 }

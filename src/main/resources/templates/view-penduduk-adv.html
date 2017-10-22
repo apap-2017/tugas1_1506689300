@@ -1,8 +1,61 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>View Penduduk</title>
-    </head>
-    <body>
-    </body>
+	<head>
+		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+		<title>Daftar Penduduk</title>
+		<link rel="stylesheet" type="text/css" href="/datatables/datatables.css"/>
+	  	<script src="/datatables/datatables.js"></script>
+	  	<script>
+		  	$(document).ready(function(){
+		  	    $('#student_table').DataTable();
+		  	});
+	  	</script>
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		<div th:replace="fragments/fragment :: header"></div>
+			<div>
+				<div>
+					<label for="id_kota">Kota</label>
+					<input hidden="true" th:name = "id_kota" th:value="${kota.id}"></input>
+					<span th:text="${kota.nama_kota}"></span>
+					<br/>
+				</div>
+				<div>
+					<label for="id_kecamatan">Kecamatan</label>
+					<input hidden="true" th:name = "id_kecamatan" th:value="${kecamatan.id}"></input>
+					<span th:text="${kecamatan.nama_kecamatan}"></span>
+					<br/>
+				</div>
+				<div>
+					<label for="id_kelurahan">Kelurahan</label>
+					<input hidden="true" th:name = "id_kelurahan" th:value="${kelurahan.id}"></input>
+					<span th:text="${kelurahan.nama_kelurahan}"></span>
+					<br/>
+				</div>
+			</div>
+			<div class="container">
+		<table id="table" class="table table-fit table-stripped">
+			<thead>
+				<tr>
+					<th>NIK</th>
+					<th>Nama</th>
+					<th>Jenis Kelamin</th>
+				</tr>
+			</thead>
+			<tbody>
+				<div th:each="penduduk,iterationStatus: ${daftarPenduduk}">
+					<tr>
+						<td th:text="${penduduk.nik}"></td>
+						<td th:text="${penduduk.nama}"></td>
+						<td th:if="${penduduk.jenis_kelamin==1}">Perempuan</td>
+						<td th:unless="${penduduk.jenis_kelamin==1}">Laki-laki</td>
+					</tr>
+				</div>
+			</tbody>
+		</table>
+	</div>
+		<div th:replace="fragments/fragment :: footer"></div>
+	</body>
 </html>

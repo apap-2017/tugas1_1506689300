@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+		<title>Daftar Penduduk</title>
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		<div th:replace="fragments/fragment :: header"></div>
+		<form action="/penduduk/cari" method="get">
+			<div>
+				<div>
+					<label for="id_kota">Kota</label>
+					<input hidden="true" th:name = "id_kota" th:value="${kota.id}"></input>
+					<span th:text="${kota.nama_kota}"></span>
+					<br/>
+				</div>
+				<div>
+					<label for="id_kecamatan">Kecamatan</label>
+					<input hidden="true" th:name = "id_kecamatan" th:value="${kecamatan.id}"></input>
+					<span th:text="${kecamatan.nama_kecamatan}"></span>
+					<br/>
+				</div>
+				<div>
+					<label for="id_kelurahan">Kelurahan</label>
+					<select id="id_kelurahan" name="id_kelurahan" >
+						<option th:each="kelurahan,iterationStatus: ${daftarKelurahan}" th:value="${kelurahan.id}" th:text="${kelurahan.nama_kelurahan}"></option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<button type="submit">Lihat</button>
+			</div>
+		</form>
+		<div th:replace="fragments/fragment :: footer"></div>
+	</body>
+</html>

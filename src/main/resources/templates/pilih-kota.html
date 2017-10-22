@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+		<title>Daftar Penduduk</title>
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		<div th:replace="fragments/fragment :: header"></div>
+		<form action="/penduduk/cari" method="get">
+			<div>
+				<div>
+					<label for="id_kota">Kota</label>
+					<select id="id_kota" name="id_kota" >
+						<option th:each="kota,iterationStatus: ${daftarKota}" th:value="${kota.id}" th:text="${kota.nama_kota}">A</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<button type="submit">Lihat</button>
+			</div>
+		</form>
+		<div th:replace="fragments/fragment :: footer"></div>
+	</body>
+</html>
